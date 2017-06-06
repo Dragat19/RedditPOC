@@ -8,32 +8,39 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by levaa on 6/5/2017.
  */
 
 public class RedditRecyclerAdapter extends RecyclerView.Adapter<RedditRecyclerAdapter.ItemViewHolder> {
     private Context context;
+    private List<InfoReddit> infoReddits;
 
-    public RedditRecyclerAdapter(Context context) {
+    public RedditRecyclerAdapter(Context context, List<InfoReddit> infoReddits) {
         this.context = context;
+        this.infoReddits = infoReddits;
     }
 
     @Override
     public RedditRecyclerAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_info_reddit,parent,false);
         ItemViewHolder redditView = new ItemViewHolder(v);
         return redditView;
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
+        holder.title.setText(infoReddits.get(position).getTitle_reddit());
+        holder.author.setText(infoReddits.get(position).getAuthor_reddit());
+        holder.comments.setText(infoReddits.get(position).getComments_reddit());
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return infoReddits.size();
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
