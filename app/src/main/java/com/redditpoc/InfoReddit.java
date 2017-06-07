@@ -1,35 +1,51 @@
 package com.redditpoc;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by levaa on 6/5/2017.
  */
 
 public class InfoReddit {
 
-    private String title;
-    private String author;
-    private String created_utc;
-    private String num_comments;
-    private String thumbnail;
+    private String after_page;
+    private String before_page;
+    private List<TopReddit> topReddit;
 
-
-    public String getTitle_reddit() {
-        return title;
+    public InfoReddit() {
+        this.topReddit = new ArrayList<TopReddit>();
     }
 
-    public String getAuthor_reddit() {
-        return author;
+    public InfoReddit(JSONObject json) throws JSONException {
+
+        this.topReddit = new ArrayList<TopReddit>();
+        JSONArray childrenReddit =  json.getJSONArray("children");
+        for (int i = 0; i < childrenReddit.length(); i++) {
+            this.topReddit.add(new TopReddit(childrenReddit.getJSONObject(i).getJSONObject("data")));
+        }
+
+        this.after_page = json.getString("after");
+        Log.e("After ", getAfter_page());
+        this.before_page = json.getString("before");
+
     }
 
-    public String getCreated_UTC_reddit() {
-        return created_utc;
+    public List<TopReddit> getTopReddit() {
+        return topReddit;
     }
 
-    public String getComments_reddit() {
-        return num_comments;
+    public String getAfter_page() {
+        return after_page;
     }
 
-    public String getThumbnails_reddit() {
-        return thumbnail;
+    public String getBefore_page() {
+        return before_page;
     }
 }

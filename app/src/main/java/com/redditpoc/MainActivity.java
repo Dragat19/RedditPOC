@@ -6,7 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
-import android.widget.Toast;
+import android.util.Log;
+
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,22 +28,36 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecycler;
     private RedditRecyclerAdapter adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setIcon(R.drawable.icon_reddit);
         mRecycler = (RecyclerView)findViewById(R.id.reddit_recycler);
-
         infoRedditList = new ArrayList<InfoReddit>();
 
-        ApiReddit.GetTopReddit();
+        ApiReddit.getReddit(null ,new JsonHttpResponseHandler(){
 
-        mRecycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RedditRecyclerAdapter(this,infoRedditList);
-        mRecycler.setAdapter(adapter);
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                try {
+                    JSONObject dataReddit = response.getJSONObject("data");
+                    infoRedditList.add(new InfoReddit(dataReddit));
+                    if (infoRedditList.size() != 0){
+                        for (int i = 0 ; i<infoRedditList.size(); i++){
+                            List<TopReddit> exp = infoRedditList.get(i).getTopReddit();
+                            mRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                            adapter = new RedditRecyclerAdapter(MainActivity.this,exp);
+                            mRecycler.setAdapter(adapter);
+                        }
+                    }
 
-
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public String getDateFromUTCTimestamp(long mTimestamp, String mDateFormate) {

@@ -16,11 +16,11 @@ import java.util.List;
 
 public class RedditRecyclerAdapter extends RecyclerView.Adapter<RedditRecyclerAdapter.ItemViewHolder> {
     private Context context;
-    private List<InfoReddit> infoReddits;
+    private List<TopReddit> topReddits;
 
-    public RedditRecyclerAdapter(Context context, List<InfoReddit> infoReddits) {
+    public RedditRecyclerAdapter(Context context, List<TopReddit> topReddits) {
         this.context = context;
-        this.infoReddits = infoReddits;
+        this.topReddits = topReddits;
     }
 
     @Override
@@ -32,15 +32,15 @@ public class RedditRecyclerAdapter extends RecyclerView.Adapter<RedditRecyclerAd
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        holder.title.setText(infoReddits.get(position).getTitle_reddit());
-        holder.author.setText(infoReddits.get(position).getAuthor_reddit());
-        holder.comments.setText(infoReddits.get(position).getComments_reddit());
+        holder.title.setText(topReddits.get(position).getTitle());
+        holder.author.setText(topReddits.get(position).getAuthor());
+        holder.comments.setText(topReddits.get(position).getNum_comments());
 
     }
 
     @Override
     public int getItemCount() {
-        return infoReddits.size();
+        return topReddits.size();
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
