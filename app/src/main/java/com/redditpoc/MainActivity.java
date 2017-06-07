@@ -3,6 +3,7 @@ package com.redditpoc;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -10,8 +11,9 @@ import android.util.Log;
 
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.redditpoc.Model.InfoReddit;
+import com.redditpoc.Model.TopReddit;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -27,17 +29,18 @@ public class MainActivity extends AppCompatActivity {
     private List<InfoReddit> infoRedditList;
     private RecyclerView mRecycler;
     private RedditRecyclerAdapter adapter;
+    private ApiReddit apiReddit;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setIcon(R.drawable.icon_reddit);
         mRecycler = (RecyclerView)findViewById(R.id.reddit_recycler);
         infoRedditList = new ArrayList<InfoReddit>();
+        apiReddit = new ApiReddit();
 
-        ApiReddit.getReddit(null ,new JsonHttpResponseHandler(){
+        apiReddit.getReddit(null ,new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
@@ -45,9 +48,12 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject dataReddit = response.getJSONObject("data");
                     infoRedditList.add(new InfoReddit(dataReddit));
                     if (infoRedditList.size() != 0){
+                        infoRedditList.get(0).getAfter_page();
+                        Log.e("After ", infoRedditList.get(0).getAfter_page());
                         for (int i = 0 ; i<infoRedditList.size(); i++){
                             List<TopReddit> exp = infoRedditList.get(i).getTopReddit();
                             mRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                            mRecycler.setItemAnimator(new DefaultItemAnimator());
                             adapter = new RedditRecyclerAdapter(MainActivity.this,exp);
                             mRecycler.setAdapter(adapter);
                         }

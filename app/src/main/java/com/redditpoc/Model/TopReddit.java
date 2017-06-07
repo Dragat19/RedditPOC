@@ -1,4 +1,4 @@
-package com.redditpoc;
+package com.redditpoc.Model;
 
 import android.util.Log;
 

@@ -1,6 +1,4 @@
-package com.redditpoc;
-
-import android.util.Log;
+package com.redditpoc.Model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +30,7 @@ public class InfoReddit {
         }
 
         this.after_page = json.getString("after");
-        Log.e("After ", getAfter_page());
+
         this.before_page = json.getString("before");
 
     }
