@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.redditpoc.R;
+import com.redditpoc.SaveImageGallery;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -42,6 +43,7 @@ public class DetailsActivity extends AppCompatActivity {
     private ImageView imageSave;
     private TextView btnCancel;
     private Button btnSave;
+    private SaveImageGallery saveImageGallery;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class DetailsActivity extends AppCompatActivity {
         imageSave = (ImageView) findViewById(R.id.saveImage);
         btnCancel = (TextView) findViewById(R.id.saveBtnCancel);
         btnSave = (Button) findViewById(R.id.saveBtn);
+        saveImageGallery = new SaveImageGallery(this);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
@@ -70,7 +73,7 @@ public class DetailsActivity extends AppCompatActivity {
                 dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        saveImage();
+                        saveImageGallery.saveImage(imageSave);
                     }
                 });
 
@@ -95,50 +98,6 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
-    public static Bitmap viewToBitmap(View view, int width ,int heigth){
-        Bitmap bitmap = Bitmap.createBitmap(width,heigth, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return  bitmap;
-    }
 
-    public void saveImage(){
-        FileOutputStream fileOutputStream = null;
-        File file = getDisco();
-        if (!file.exists() && !file.mkdir()){
-            Toast.makeText(this,"Can't create directory to save image",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyymmsshhmmss");
-        String date = simpleDateFormat.format(new Date());
-        String name = "Img"+date+".jpg";
-        String file_name = file.getAbsolutePath()+"/"+name;
-        File new_file = new File(file_name);
-        try {
-            fileOutputStream = new FileOutputStream(new_file);
-            Bitmap bitmap = viewToBitmap(imageSave, imageSave.getWidth(),imageSave.getHeight());
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
-            Toast.makeText(this,"save image success",Toast.LENGTH_SHORT).show();
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        refreshGaleria(new_file);
-    }
-
-   public void refreshGaleria(File file) {
-       Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-       intent.setData(Uri.fromFile(file));
-       sendBroadcast(intent);
-
-    }
-
-    private File getDisco(){
-        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-        return new File(file,"Image Demo");
-    }
 
 }
