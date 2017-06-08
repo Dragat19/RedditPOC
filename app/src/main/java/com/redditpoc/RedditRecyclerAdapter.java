@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.redditpoc.Activities.DetailsActivity;
 import com.redditpoc.Model.TopReddit;
 import com.squareup.picasso.Picasso;
 
@@ -20,7 +21,7 @@ import java.util.List;
  */
 
 public class RedditRecyclerAdapter extends RecyclerView.Adapter<RedditRecyclerAdapter.ItemViewHolder> {
-    public static final String ADAPTER_THUMBNAILS = "thumbnails";
+    public static final String ADAPTER_IMAGEN = "images";
     private Context context;
     private List<TopReddit> topReddits;
 
@@ -47,7 +48,7 @@ public class RedditRecyclerAdapter extends RecyclerView.Adapter<RedditRecyclerAd
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,DetailsActivity.class);
-                intent.putExtra(ADAPTER_THUMBNAILS,topReddits.get(position).getThumbnail());
+                intent.putExtra(ADAPTER_IMAGEN,topReddits.get(position).getImage());
                 context.startActivity(intent);
 
             }

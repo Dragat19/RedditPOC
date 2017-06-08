@@ -1,31 +1,15 @@
 package com.redditpoc;
-
-
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
 
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by levaa on 6/6/2017.
  */
 
 public class ApiReddit {
-    private static final String BASE_URL =  "https://www.reddit.com/top.json?limit=10";
+    private static final String BASE_URL =  "https://www.reddit.com/top.json?limit=50";
     private final String API_BASE_URL = "http://www.reddit.com/";
     private static AsyncHttpClient client;
 
@@ -33,19 +17,19 @@ public class ApiReddit {
         this.client = new AsyncHttpClient();
     }
 
-
+    //www.reddit.com/top.json?after=
     private String getApiUrl(String subreddit) {
         String url = API_BASE_URL;
 
         if(!subreddit.equals("")){
-            url += "r/" + subreddit;
+            url += "top.json?after=" + subreddit;
         }
 
-        return url + ".json";
+        return url;
     }
 
-    public void getPosts(JsonHttpResponseHandler handler) {
-        String url = getApiUrl("");
+    public void getPosts(String after,AsyncHttpResponseHandler  handler) {
+        String url = getApiUrl(after);
         client.get(url, handler);
     }
 
