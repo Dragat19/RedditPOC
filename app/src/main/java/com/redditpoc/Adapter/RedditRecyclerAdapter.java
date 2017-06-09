@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.redditpoc.Activities.DetailsActivity;
+import com.redditpoc.DetailsActivity;
 import com.redditpoc.Model.TopReddit;
 import com.redditpoc.R;
 import com.squareup.picasso.Picasso;

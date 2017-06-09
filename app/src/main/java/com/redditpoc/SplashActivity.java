@@ -1,4 +1,4 @@
-package com.redditpoc.Activities;
+package com.redditpoc;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import com.redditpoc.Utils.ApiReddit;
 import com.redditpoc.Model.InfoReddit;
 import com.redditpoc.Model.ManagerReddit;
 import com.redditpoc.Model.TopReddit;
-import com.redditpoc.R;
+
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;

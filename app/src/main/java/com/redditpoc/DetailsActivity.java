@@ -1,4 +1,4 @@
-package com.redditpoc.Activities;
+package com.redditpoc;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.redditpoc.R;
 import com.redditpoc.Utils.SaveImageGallery;
 import com.squareup.picasso.Picasso;
 
