@@ -95,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 if (currentPage >=1 && currentPage <=totalPages) {
                     btnNext.setEnabled(true);
                     btnPrev.setEnabled(true);
-                    btnNext.setTextColor(R.color.colorAccent);
-                    btnPrev.setTextColor(R.color.colorAccent);
                 }
             }
         }

@@ -38,6 +38,10 @@ public class DetailsActivity extends AppCompatActivity {
         btnSave = (Button) findViewById(R.id.saveBtn);
         saveImageGallery = new SaveImageGallery(this);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_reddit_white);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         String Image = getIntent().getStringExtra(ADAPTER_IMAGEN);
         Picasso.with(DetailsActivity.this)
                 .load(Image)
