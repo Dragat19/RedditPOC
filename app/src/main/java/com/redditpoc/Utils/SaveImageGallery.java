@@ -1,4 +1,4 @@
-package com.redditpoc;
+package com.redditpoc.Utils;
 
 import android.content.Context;
 import android.content.Intent;

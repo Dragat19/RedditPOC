@@ -1,31 +1,19 @@
 package com.redditpoc.Activities;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.redditpoc.Adapter.AdapterPaginator;
-import com.redditpoc.ApiReddit;
-import com.redditpoc.Model.InfoReddit;
 import com.redditpoc.Model.ManagerReddit;
 import com.redditpoc.Model.TopReddit;
 import com.redditpoc.R;
 import com.redditpoc.Adapter.RedditRecyclerAdapter;
 
-import org.json.JSONObject;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,14 +71,10 @@ public class MainActivity extends AppCompatActivity {
         if (currentPage == totalPages) {
             btnNext.setEnabled(false);
             btnPrev.setEnabled(true);
-            btnNext.setTextColor(R.color.black);
-            btnPrev.setTextColor(R.color.colorAccent);
         }else {
             if (currentPage == 0) {
                 btnNext.setEnabled(true);
                 btnPrev.setEnabled(false);
-                btnNext.setTextColor(R.color.colorAccent);
-                btnPrev.setTextColor(R.color.black);
             }else {
                 if (currentPage >=1 && currentPage <=totalPages) {
                     btnNext.setEnabled(true);
@@ -99,11 +83,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
-
-
 
 
 }
