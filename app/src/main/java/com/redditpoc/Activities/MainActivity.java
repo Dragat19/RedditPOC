@@ -1,4 +1,5 @@
 package com.redditpoc.Activities;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,13 +11,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.redditpoc.Adapter.AdapterPaginator;
 import com.redditpoc.ApiReddit;
 import com.redditpoc.Model.InfoReddit;
+import com.redditpoc.Model.ManagerReddit;
 import com.redditpoc.Model.TopReddit;
 import com.redditpoc.R;
-import com.redditpoc.RedditRecyclerAdapter;
+import com.redditpoc.Adapter.RedditRecyclerAdapter;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,17 +27,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import cz.msebera.android.httpclient.Header;
-
 public class MainActivity extends AppCompatActivity {
-    private long UTC_TIMEZONE=1496636570;
-    private String OUTPUT_DATE_FORMATE="dd-MM-yyyy - hh:mm a";
-    private List<InfoReddit> infoRedditList;
+
     private RecyclerView mRecycler;
     private RedditRecyclerAdapter adapter;
-    private ApiReddit apiReddit;
-    private Button btnNext;
-
+    private Button btnNext,btnPrev;
+    private AdapterPaginator paginator = new AdapterPaginator();
+    private int totalPages = AdapterPaginator.TOTAL_ITEMS / AdapterPaginator.ITEMS_PAGE;
+    private int currentPage = 0;
+    private ManagerReddit managerReddit = new ManagerReddit(this);
+    private List<TopReddit> dataReddit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,65 +44,68 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecycler = (RecyclerView)findViewById(R.id.reddit_recycler);
         btnNext = (Button) findViewById(R.id.Next);
-        infoRedditList = new ArrayList<InfoReddit>();
-        apiReddit = new ApiReddit();
+        btnPrev = (Button) findViewById(R.id.Prev);
 
-        mRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        mRecycler.setItemAnimator(new DefaultItemAnimator());
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_reddit_white);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-
-        apiReddit.getReddit(null ,new JsonHttpResponseHandler(){
-
-            @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
-                try {
-                    JSONObject dataReddit = response.getJSONObject("data");
-                    infoRedditList.add(new InfoReddit(dataReddit));
-                    if (infoRedditList.size() != 0){
-                        infoRedditList.get(0).getAfter_page();
-                        Log.e("After ", infoRedditList.get(0).getAfter_page());
-                        for (int i = 0 ; i<infoRedditList.size(); i++){
-                            List<TopReddit> exp = infoRedditList.get(i).getTopReddit();
-                            adapter = new RedditRecyclerAdapter(MainActivity.this,exp);
-                            mRecycler.setAdapter(adapter);
-                        }
-                    }
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
+        dataReddit = managerReddit.loadAll();
+        if (dataReddit.size() != 0) {
+            mRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+            mRecycler.setItemAnimator(new DefaultItemAnimator());
+            adapter = new RedditRecyclerAdapter(MainActivity.this,dataReddit,paginator.generatePage(currentPage));
+            mRecycler.setAdapter(adapter);
+        }
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                currentPage += 1;
+                adapter = new RedditRecyclerAdapter(MainActivity.this, dataReddit,paginator.generatePage(currentPage));
+                mRecycler.setAdapter(adapter);
+                ToogleButton();
             }
         });
 
-
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentPage -= 1;
+                adapter = new RedditRecyclerAdapter(MainActivity.this, dataReddit,paginator.generatePage(currentPage));
+                mRecycler.setAdapter(adapter);
+                ToogleButton();
+            }
+        });
     }
 
-    public String getDateFromUTCTimestamp(long mTimestamp, String mDateFormate) {
-        String date = null;
-        try {
-            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            cal.setTimeInMillis(mTimestamp * 1000L);
-            date = DateFormat.format(mDateFormate, cal.getTimeInMillis()).toString();
-
-            SimpleDateFormat formatter = new SimpleDateFormat(mDateFormate);
-            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date value = formatter.parse(date);
-
-            SimpleDateFormat dateFormatter = new SimpleDateFormat(mDateFormate);
-            dateFormatter.setTimeZone(TimeZone.getDefault());
-            date = dateFormatter.format(value);
-            return date;
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void ToogleButton(){
+        if (currentPage == totalPages) {
+            btnNext.setEnabled(false);
+            btnPrev.setEnabled(true);
+            btnNext.setTextColor(R.color.black);
+            btnPrev.setTextColor(R.color.colorAccent);
+        }else {
+            if (currentPage == 0) {
+                btnNext.setEnabled(true);
+                btnPrev.setEnabled(false);
+                btnNext.setTextColor(R.color.colorAccent);
+                btnPrev.setTextColor(R.color.black);
+            }else {
+                if (currentPage >=1 && currentPage <=totalPages) {
+                    btnNext.setEnabled(true);
+                    btnPrev.setEnabled(true);
+                    btnNext.setTextColor(R.color.colorAccent);
+                    btnPrev.setTextColor(R.color.colorAccent);
+                }
+            }
         }
-        return date;
     }
+
+
+
+
+
+
+
 }

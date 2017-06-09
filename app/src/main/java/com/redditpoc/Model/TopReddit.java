@@ -6,11 +6,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by levaa on 6/6/2017.
  */
 
 public class TopReddit {
+    private static final String JSON_TITLE = "title";
+    private static final String JSON_AUTHOR = "author";
+    private static final String JSON_THUMBNAIL = "thumbnail";
+    private static final String JSON_DATE_CREATED = "created_utc";
+    private static final String JSON_COMMENTS = "num_comments";
+    private static final String JSON_IMAGE = "url";
+
     private String title;
     private String author;
     private int created_utc;
@@ -18,19 +28,26 @@ public class TopReddit {
     private String thumbnail;
     private String image;
 
-    public TopReddit(JSONObject json) throws JSONException {
-        this.title = json.getString("title");
-        this.author = json.getString("author");
-        this.thumbnail = json.getString("thumbnail");
-        this.created_utc = json.getInt("created_utc");
-        this.num_comments = json.getString("num_comments");
 
-        if (json.has("preview")){
+
+    public TopReddit(JSONObject json) throws JSONException {
+        this.title = json.getString(JSON_TITLE);
+        this.author = json.getString(JSON_AUTHOR);
+        this.thumbnail = json.getString(JSON_THUMBNAIL);
+        this.created_utc = json.getInt(JSON_DATE_CREATED);
+        this.num_comments = json.getString(JSON_COMMENTS);
+
+
+       /* if (json.has("preview")){
             JSONArray imagenReddit = json.getJSONObject("preview").getJSONArray("images");
             for (int j = 0 ; j<imagenReddit.length() ; j++){
-                this.image = imagenReddit.getJSONObject(j).getJSONObject("source").getString("url");
+
+                String string = imagenReddit.getJSONObject(j).getJSONObject("source").getString(JSON_IMAGE);
+                String[] parts = string.split("/");
+                this.image=parts[3];
+
             }
-        }
+        }*/
 
     }
 
@@ -56,5 +73,16 @@ public class TopReddit {
 
     public String getThumbnail() {
         return thumbnail;
+    }
+
+
+    public JSONObject toJSON() throws JSONException {
+        JSONObject obj = new JSONObject();
+        obj.put(JSON_TITLE, getTitle());
+        obj.put(JSON_AUTHOR, getAuthor());
+        obj.put(JSON_THUMBNAIL, getThumbnail());
+        obj.put(JSON_DATE_CREATED, getCreated_utc());
+        obj.put(JSON_COMMENTS, getNum_comments());
+        return obj;
     }
 }

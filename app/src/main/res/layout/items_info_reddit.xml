@@ -47,7 +47,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tx_author_reddit"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"
+                        android:textColor="@color/md_deep_orange_800"/>
 
                     <TextView
                         android:id="@+id/comments_reddit"
@@ -55,6 +56,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tx_comments_reddit"
                         android:textSize="12dp"
+                        android:textColor="@color/md_deep_orange_800"
                         android:layout_below="@+id/title_reddit"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
@@ -65,7 +67,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tx_date_reddit"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"
+                        android:textColor="@color/md_deep_orange_800"/>
+
             </RelativeLayout>
 
        </LinearLayout>
