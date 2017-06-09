@@ -21,7 +21,5 @@ Please include the following support:
 
 Some resources
 Reddit API : http://www.reddit.com/dev/api
-
 Apigee :https://apigee.com/console/reddit
-
 Json : www.reddit.com/top.json
