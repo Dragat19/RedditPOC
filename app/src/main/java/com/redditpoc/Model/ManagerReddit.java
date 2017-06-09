@@ -1,17 +1,10 @@
 package com.redditpoc.Model;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by levaa on 6/8/2017.

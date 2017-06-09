@@ -1,13 +1,7 @@
 package com.redditpoc.Model;
-
-import android.util.Log;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by levaa on 6/6/2017.
