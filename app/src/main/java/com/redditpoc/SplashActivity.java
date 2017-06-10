@@ -9,6 +9,7 @@ import com.redditpoc.Utils.ApiReddit;
 import com.redditpoc.Model.InfoReddit;
 import com.redditpoc.Model.ManagerReddit;
 import com.redditpoc.Model.TopReddit;
+import com.redditpoc.Utils.PermissionHelper;
 
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -47,9 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                             managerReddit.setGroups(exp);
                             managerReddit.saveAll();
                             if (exp.size() !=0) {
-                                Intent intent = new Intent(SplashActivity.this,MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                                gotoHome();
                             }
                         }
                     }
@@ -60,5 +59,11 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void gotoHome(){
+        Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

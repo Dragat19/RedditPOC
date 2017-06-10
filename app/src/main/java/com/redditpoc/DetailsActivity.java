@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.redditpoc.Utils.PermissionHelper;
 import com.redditpoc.Utils.SaveImageGallery;
 import com.squareup.picasso.Picasso;
 
@@ -61,25 +62,13 @@ public class DetailsActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog.Builder dialog = new AlertDialog.Builder(DetailsActivity.this);
-                dialog.setTitle("Guardar Imagen");
-                dialog.setMessage("¿Estas seguro que quieres guardar la imagen?");
-                dialog.setCancelable(false);
-                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        saveImageGallery.saveImage(imageSave);
-                    }
-                });
 
-                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                if (PermissionHelper.needsToRequestWriteExternalPermissions(DetailsActivity.this)){
+                    PermissionHelper.requestWriteExternalPermission(DetailsActivity.this);
+                }else{
+                    Save();
+                }
 
-                dialog.create().show();
             }
         });
 
@@ -93,6 +82,29 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
+    private void Save(){
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(DetailsActivity.this);
+        dialog.setTitle("Guardar Imagen");
+        dialog.setMessage("¿Estas seguro que quieres guardar la imagen?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                saveImageGallery.saveImage(imageSave);
+
+            }
+        });
+
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.create().show();
+    }
 
 
 }

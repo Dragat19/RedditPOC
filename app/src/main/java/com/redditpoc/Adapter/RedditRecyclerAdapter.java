@@ -1,5 +1,6 @@
 package com.redditpoc.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.redditpoc.DetailsActivity;
 import com.redditpoc.Model.TopReddit;
 import com.redditpoc.R;
+import com.redditpoc.Utils.PermissionHelper;
 import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,6 +58,7 @@ public class RedditRecyclerAdapter extends RecyclerView.Adapter<RedditRecyclerAd
         holder.thumbnails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(context,DetailsActivity.class);
                 intent.putExtra(ADAPTER_IMAGEN,topReddits.get(items.get(position)).getThumbnail());
                 context.startActivity(intent);
