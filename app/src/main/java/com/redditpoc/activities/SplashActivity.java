@@ -1,15 +1,15 @@
-package com.redditpoc;
+package com.redditpoc.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.redditpoc.R;
 import com.redditpoc.Utils.ApiReddit;
 import com.redditpoc.Model.InfoReddit;
 import com.redditpoc.Model.ManagerReddit;
 import com.redditpoc.Model.TopReddit;
-import com.redditpoc.Utils.PermissionHelper;
 
 import org.json.JSONObject;
 import java.util.ArrayList;

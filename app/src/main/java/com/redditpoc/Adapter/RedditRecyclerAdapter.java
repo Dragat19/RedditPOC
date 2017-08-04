@@ -1,6 +1,5 @@
 package com.redditpoc.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -11,11 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.redditpoc.DetailsActivity;
+
+import com.redditpoc.activities.DetailsActivity;
 import com.redditpoc.Model.TopReddit;
 import com.redditpoc.R;
-import com.redditpoc.Utils.PermissionHelper;
 import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

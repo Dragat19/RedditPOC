@@ -1,4 +1,4 @@
-package com.redditpoc;
+package com.redditpoc.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,6 +10,7 @@ import com.redditpoc.Adapter.AdapterPaginator;
 import com.redditpoc.Model.ManagerReddit;
 import com.redditpoc.Model.TopReddit;
 import com.redditpoc.Adapter.RedditRecyclerAdapter;
+import com.redditpoc.R;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         dataReddit = managerReddit.loadAll();
         if (dataReddit.size() != 0) {
             mRecycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+            mRecycler.setHasFixedSize(true);
             mRecycler.setItemAnimator(new DefaultItemAnimator());
             adapter = new RedditRecyclerAdapter(MainActivity.this,dataReddit,paginator.generatePage(currentPage));
             mRecycler.setAdapter(adapter);
