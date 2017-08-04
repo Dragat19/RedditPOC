@@ -1,10 +1,13 @@
 package com.redditpoc.mvp.model;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import org.json.JSONArray;
 import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by levaa on 6/8/2017.
