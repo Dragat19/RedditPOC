@@ -1,4 +1,4 @@
-package com.redditpoc.Model;
+package com.redditpoc.mvp.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import org.json.JSONArray;

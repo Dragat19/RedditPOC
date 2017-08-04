@@ -1,4 +1,4 @@
-package com.redditpoc.Model;
+package com.redditpoc.mvp.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;

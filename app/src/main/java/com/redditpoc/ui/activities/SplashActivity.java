@@ -1,4 +1,4 @@
-package com.redditpoc.activities;
+package com.redditpoc.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.redditpoc.R;
 import com.redditpoc.Utils.ApiReddit;
-import com.redditpoc.Model.InfoReddit;
-import com.redditpoc.Model.ManagerReddit;
-import com.redditpoc.Model.TopReddit;
+import com.redditpoc.mvp.model.InfoReddit;
+import com.redditpoc.mvp.model.ManagerReddit;
+import com.redditpoc.mvp.model.TopReddit;
 
 import org.json.JSONObject;
 import java.util.ArrayList;

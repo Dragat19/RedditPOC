@@ -1,4 +1,4 @@
-package com.redditpoc.Adapter;
+package com.redditpoc.ui.Adapter;
 import java.util.ArrayList;
 
 /**

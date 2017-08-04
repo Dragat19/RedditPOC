@@ -1,4 +1,4 @@
-package com.redditpoc.activities;
+package com.redditpoc.ui.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,7 +17,7 @@ import com.redditpoc.Utils.PermissionHelper;
 import com.redditpoc.Utils.SaveImageGallery;
 import com.squareup.picasso.Picasso;
 
-import static com.redditpoc.Adapter.RedditRecyclerAdapter.ADAPTER_IMAGEN;
+import static com.redditpoc.ui.Adapter.RedditRecyclerAdapter.ADAPTER_IMAGEN;
 
 /**
  * Created by levaa on 6/7/2017.

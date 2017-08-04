@@ -17,7 +17,6 @@ public class ApiReddit {
         this.client = new AsyncHttpClient();
     }
 
-    //www.reddit.com/top.json?after=
     private String getApiUrl(String subreddit) {
         String url = API_BASE_URL;
 

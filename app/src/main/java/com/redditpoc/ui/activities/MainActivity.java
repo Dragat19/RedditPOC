@@ -1,4 +1,4 @@
-package com.redditpoc.activities;
+package com.redditpoc.ui.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -6,10 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import com.redditpoc.Adapter.AdapterPaginator;
-import com.redditpoc.Model.ManagerReddit;
-import com.redditpoc.Model.TopReddit;
-import com.redditpoc.Adapter.RedditRecyclerAdapter;
+import com.redditpoc.ui.Adapter.AdapterPaginator;
+import com.redditpoc.mvp.model.ManagerReddit;
+import com.redditpoc.mvp.model.TopReddit;
+import com.redditpoc.ui.Adapter.RedditRecyclerAdapter;
 import com.redditpoc.R;
 
 import java.util.List;
