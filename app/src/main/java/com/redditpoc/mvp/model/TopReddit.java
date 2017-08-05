@@ -1,4 +1,6 @@
 package com.redditpoc.mvp.model;
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
